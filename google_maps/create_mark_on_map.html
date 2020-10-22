@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple Map</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script
+      src=`https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=initMap&libraries=&v=weekly`
+      defer
+    ></script>
+    <style type="text/css">
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+
+      /* Optional: Makes the sample page fill the window. */
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+    <script>
+      let map;
+
+      function initMap() {
+        map = new google.maps.Map(document.getElementById("map"), {
+          center: { lat: 6.548082, lng: 101.276772 },
+          zoom: 8,
+        });
+        const locations = [
+          ["ด่านแยกตะลุโบ๊ะ", "6.8521819999999964", "101.2528219999999948"],
+          [
+            "PY-SB-005 วงเวียนขนส่ง",
+            "6.8831369999999934",
+            "101.2450079999999986",
+          ],
+          [
+            "PY-SB-006 วงเวียน มอ. ปัตตานี",
+            "6.8772529999999987",
+            "101.2345519999999937",
+          ],
+          ["QH739538", "6.8131731758982914", "101.4781030426960058"],
+          [
+            "PY-SB-007 ธ.ไทยพาณิชย์ สาขาเจริญประดิษฐ์",
+            "6.8756310000000074",
+            "101.2354260000000039",
+          ],
+
+          [
+            "PY-SB-046 ปากซอย 12 และปากซอย 15 ถ. เจริญประดิษฐ์",
+            "6.8728930000000021",
+            "101.2367440000000016",
+          ],
+          [
+            "PY-SB-009 หน้าปัตตานีเพลส ถ. เจริญประดิษฐ์",
+            "6.8697740000000094",
+            "101.2381890000001050",
+          ],
+          [
+            "PY-SB-010 แยกโรงอ่าง ถ.มะกรูด",
+            "6.8629912761894438",
+            "101.2424013096962057",
+          ],
+          [
+            "PY-SB-011 ถ.พญาเมือง ซ.5",
+            "6.8589440000000144",
+            "101.2374789999999933",
+          ],
+          [
+            "PY-SB-012 แยกโรงเรียนเจริญศรี ถ.พญาเมือง",
+            "6.8563059999999698",
+            "101.2290770000000037",
+          ],
+          [
+            "PY-SB-013 แยกถนนภายในหมู่บ้านงาแม่",
+            "6.8559330000000029",
+            "101.2266469999999998",
+          ],
+          [
+            "PY-SB-014 แยกปากทางเข้าบ้านงาแม่",
+            "6.8550729999999893",
+            "101.2224140000000006",
+          ],
+          ["ด่านแยกบานา", "6.8710450000000156", "101.2814900000000051"],
+        ];
+        var marker, i;
+        var infowindow = new google.maps.InfoWindow();
+        for (i = 0; i < locations.length; i++) {
+          marker = new google.maps.Marker({
+            position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+            map: map,
+          });
+
+          google.maps.event.addListener(
+            marker,
+            "click",
+            (function (marker, i) {
+              return function () {
+                infowindow.setContent(locations[i][0]);
+                infowindow.open(map, marker);
+              };
+            })(marker, i)
+          );
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div id="map"></div>
+  </body>
+</html>
